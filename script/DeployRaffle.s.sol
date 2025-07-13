@@ -6,11 +6,11 @@ import {Script} from "forge-std/Script.sol";
 import {Raffle} from "src/Raffle.sol";
 import {HelperConfig} from "script/HelperConfig.s.sol";
 
-contract DeployRaffle {
+contract DeployRaffle is Script {
     function run() external {
     }
 
-    function deployRaffle() public returns (Raffle,HelperCondig) {
+    function deployRaffle() public returns (Raffle,HelperConfig) {
         HelperConfig helperConfig = new HelperConfig();
         // local -> make mocks, get local config
         // sepolia -> get sepolia config
@@ -20,11 +20,11 @@ contract DeployRaffle {
         Raffle raffle = new Raffle(
             config.entranceFee,
             config.interval,
-            config.vrfCoordinator;
-            config.gasLane
-            config.subscriptionId
+            config.vrfCoordinator,
+            config.gasLane,
+            config.subscriptionId,
             config.callbackGasLimit
-        )
+        );
         vm.stopBroadcast();
         return (raffle, helperConfig);
     }
